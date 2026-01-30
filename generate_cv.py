@@ -51,7 +51,7 @@ def draw_header(c, y_position):
     y_position -= 30
     c.setFont("Helvetica-Oblique", 10)
     c.setFillColor(LIGHT_GRAY)
-    summary = "I have been working as a Data Scientist for over 3 years with special focus on time series analysis and"
+    summary = "I have been working as a Data Scientist for over 4 years with special focus on time series analysis and"
     c.drawString(LEFT_MARGIN, y_position, summary)
     y_position -= 14
     c.drawString(LEFT_MARGIN, y_position, "forecasting. My daily tools are R and Python.")
