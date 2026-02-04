@@ -26,27 +26,39 @@ RIGHT_MARGIN = 2 * cm
 TOP_MARGIN = 2 * cm
 
 def draw_header(c, y_position):
-    """Draw the header section with name and title"""
+    """Draw the header section with photo, name and title"""
+    # Photo dimensions
+    photo_width = 3.5 * cm
+    photo_height = 3.3 * cm
+    photo_x = LEFT_MARGIN
+    photo_y = y_position - photo_height + 30
+
+    # Draw photo
+    c.drawImage("photo.jpg", photo_x, photo_y, width=photo_width, height=photo_height, preserveAspectRatio=True, mask='auto')
+
+    # Text starts after the photo
+    text_x = LEFT_MARGIN + photo_width + 0.5 * cm
+
     # Name
     c.setFont("Helvetica", 32)
     c.setFillColor(DARK_GRAY)
-    c.drawString(LEFT_MARGIN, y_position, "Francesco")
-    
+    c.drawString(text_x, y_position, "Francesco")
+
     c.setFont("Helvetica-Bold", 32)
-    c.drawString(LEFT_MARGIN + 160, y_position, "Colicino")
-    
+    c.drawString(text_x + 160, y_position, "Colicino")
+
     # Title
     y_position -= 25
     c.setFont("Helvetica", 11)
     c.setFillColor(DARK_RED)
-    c.drawString(LEFT_MARGIN, y_position, "DATA SCIENTIST")
-    
+    c.drawString(text_x, y_position, "DATA SCIENTIST")
+
     # Contact info
     y_position -= 20
     c.setFont("Helvetica", 10)
     c.setFillColor(DARK_GRAY)
-    c.drawString(LEFT_MARGIN, y_position, "☎ 3341133931  |  ✉ colicino.francesco@gmail.com")
-    
+    c.drawString(text_x, y_position, "☎ 3341133931  |  ✉ colicino.francesco@gmail.com")
+
     # Summary
     y_position -= 30
     c.setFont("Helvetica-Oblique", 10)
@@ -55,7 +67,7 @@ def draw_header(c, y_position):
     c.drawString(LEFT_MARGIN, y_position, summary)
     y_position -= 14
     c.drawString(LEFT_MARGIN, y_position, "forecasting. My daily tools are R and Python.")
-    
+
     return y_position - 30
 
 def draw_section_header(c, y_position, title):
@@ -371,5 +383,5 @@ def create_cv(output_path):
     print(f"CV created successfully: {output_path}")
 
 if __name__ == "__main__":
-    output_file = "Francesco_Colicino_CV.pdf"
+    output_file = "Francesco_Colicino.pdf"
     create_cv(output_file)
