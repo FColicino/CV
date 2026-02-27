@@ -112,7 +112,7 @@ def draw_employment(c, y_position):
     c.setFillColor(DARK_GRAY)
     c.drawString(LEFT_MARGIN, y_position, "FOORBAN")
     c.setFillColor(LIGHT_GRAY)
-    c.drawRightString(PAGE_WIDTH - RIGHT_MARGIN, y_position, "Dic 2026 -> Present")
+    c.drawRightString(PAGE_WIDTH - RIGHT_MARGIN, y_position, "Dic 2025 -> Present")
     
     # Bullet points
     y_position -= 18
