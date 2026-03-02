@@ -51,7 +51,7 @@ def draw_header(c, y_position):
     y_position -= 25
     c.setFont("Helvetica", 11)
     c.setFillColor(DARK_RED)
-    c.drawString(text_x, y_position, "DATA SCIENTIST")
+    c.drawString(text_x, y_position, "SENIOR DATA SCIENTIST")
 
     # Contact info
     y_position -= 20
@@ -101,7 +101,7 @@ def draw_employment(c, y_position):
     # Job 1 - FOORBAN
     c.setFont("Helvetica-Bold", 11)
     c.setFillColor(DARK_GRAY)
-    c.drawString(LEFT_MARGIN, y_position, "Data Scientist")
+    c.drawString(LEFT_MARGIN, y_position, "Senior Data Scientist")
     
     c.setFont("Helvetica", 10)
     c.setFillColor(LIGHT_GRAY)
@@ -117,6 +117,7 @@ def draw_employment(c, y_position):
     # Bullet points
     y_position -= 18
     bullets = [
+        "Supply Chain Optimization and Forecasting",
         "Softwares and Tools: Python, SQL"
     ]
     
@@ -127,6 +128,7 @@ def draw_employment(c, y_position):
         y_position -= 14
 
     # Job 2 - COOP
+    y_position -= 10
     c.setFont("Helvetica-Bold", 11)
     c.setFillColor(DARK_GRAY)
     c.drawString(LEFT_MARGIN, y_position, "Data Scientist")
