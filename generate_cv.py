@@ -19,6 +19,7 @@ PAGE_WIDTH, PAGE_HEIGHT = A4
 DARK_RED = HexColor("#8B0000")
 LIGHT_GRAY = HexColor("#666666")
 DARK_GRAY = HexColor("#333333")
+ACCENT_BLUE = HexColor("#3498DB")   # For links and accents
 
 # Margins
 LEFT_MARGIN = 2 * cm
@@ -34,7 +35,14 @@ def draw_header(c, y_position):
     photo_y = y_position - photo_height + 30
 
     # Draw photo
-    c.drawImage("photo.jpg", photo_x, photo_y, width=photo_width, height=photo_height, preserveAspectRatio=True, mask='auto')
+    try:
+        c.drawImage("photo.jpg", photo_x, photo_y, width=photo_width, height=photo_height,
+                   preserveAspectRatio=True, mask='auto')
+    except:
+        # If photo not found, draw a placeholder box
+        c.setStrokeColor(LIGHT_GRAY)
+        c.setFillColor(white)
+        c.rect(photo_x, photo_y, photo_width, photo_height, fill=1, stroke=1)
 
     # Text starts after the photo
     text_x = LEFT_MARGIN + photo_width + 0.5 * cm
@@ -47,28 +55,38 @@ def draw_header(c, y_position):
     c.setFont("Helvetica-Bold", 32)
     c.drawString(text_x + 160, y_position, "Colicino")
 
-    # Title
+    # Title - UPDATED
     y_position -= 25
-    c.setFont("Helvetica", 11)
+    c.setFont("Helvetica-Bold", 11)
     c.setFillColor(DARK_RED)
-    c.drawString(text_x, y_position, "SENIOR DATA SCIENTIST")
+    c.drawString(text_x, y_position, "STATISTICIAN | DATA SCIENTIST | ML ENGINEER")
 
-    # Contact info
+    # Contact info with links - UPDATED
     y_position -= 20
-    c.setFont("Helvetica", 10)
+    c.setFont("Helvetica", 9)
     c.setFillColor(DARK_GRAY)
-    c.drawString(text_x, y_position, "☎ 3341133931  |  ✉ colicino.francesco@gmail.com")
+    c.drawString(text_x, y_position, "☎ +39 3341133931  |  ✉ colicino.francesco@gmail.com")
 
-    # Summary
-    y_position -= 30
+    y_position -= 13
+    c.setFillColor(ACCENT_BLUE)
+    c.drawString(text_x, y_position, "https://www.linkedin.com/in/francesco-colicino-b40b79104/")
+
+    # Professional Summary - UPDATED
+    y_position -= 28
     c.setFont("Helvetica-Oblique", 10)
     c.setFillColor(LIGHT_GRAY)
-    summary = "I have been working as a Data Scientist for over 4 years with special focus on time series analysis and"
-    c.drawString(LEFT_MARGIN, y_position, summary)
-    y_position -= 14
-    c.drawString(LEFT_MARGIN, y_position, "forecasting. My daily tools are R and Python.")
 
-    return y_position - 30
+    summary_lines = [
+              "Statistician and Data Scientist with 4+ years of experience specializing in end-to-end data workflows: from ETL and",
+        "data wrangling to machine learning model development and production deployment. Expert in Time Series forecasting,",
+        "predictive modeling, and A/B testing. Proficient in Python (pandas, scikit-learn), R (data.table, tidymodels) and DuckDB."
+        ]
+
+    for line in summary_lines:
+        c.drawString(LEFT_MARGIN, y_position, line)
+        y_position -= 12
+
+    return y_position - 20
 
 def draw_section_header(c, y_position, title):
     """Draw a section header with colored first letters"""
@@ -96,11 +114,11 @@ def draw_section_header(c, y_position, title):
 
 def draw_employment(c, y_position):
     """Draw employment section"""
-    y_position = draw_section_header(c, y_position, "Employment")
+    y_position = draw_section_header(c, y_position, "Professional Experience")
     
     # Job 1 - FOORBAN
     c.setFont("Helvetica-Bold", 11)
-    c.setFillColor(DARK_GRAY)
+    c.setFillColor(DARK_RED)
     c.drawString(LEFT_MARGIN, y_position, "Senior Data Scientist")
     
     c.setFont("Helvetica", 10)
@@ -117,8 +135,9 @@ def draw_employment(c, y_position):
     # Bullet points
     y_position -= 18
     bullets = [
-        "Supply Chain Optimization and Forecasting",
-        "Softwares and Tools: Python, SQL"
+        "Supply chain optimization and demand forecasting for logistics operations",
+        "ETL pipeline on BigQuery for dashboarding and reporting",
+        "Tools: Python (pandas, scikit-learn), SQL, DuckDB, Docker, dbt"
     ]
     
     c.setFont("Helvetica", 9)
@@ -130,7 +149,7 @@ def draw_employment(c, y_position):
     # Job 2 - COOP
     y_position -= 10
     c.setFont("Helvetica-Bold", 11)
-    c.setFillColor(DARK_GRAY)
+    c.setFillColor(DARK_RED)
     c.drawString(LEFT_MARGIN, y_position, "Data Scientist")
     
     c.setFont("Helvetica", 10)
@@ -149,10 +168,10 @@ def draw_employment(c, y_position):
     bullets = [
         "CRM Analysis, customer segmentation with marketing goals;",
         "A/B tests and inference on promos;",
-        "Bayesian analysis with PyMC",
+        "Bayesian analysis with PyMC;",
         "Forecast of churn customers through prediction model;",
-        "Time series analysis and forecast on sales and stock data;",
-        "Softwares and Tools: R, Python, SQL"
+        "Time series analysis and forecast on sales and stock data (Xboost, ARIMA, etc.)",
+        "Tools: Python (PyMC, pandas), R (data.table, tidymodels), SQL, DuckDB, Docker, dbt, Git, AWS (S3, EC2), Airflow"
     ]
     
     c.setFont("Helvetica", 9)
@@ -164,7 +183,7 @@ def draw_employment(c, y_position):
     # Job 3 - BV-TECH
     y_position -= 10
     c.setFont("Helvetica-Bold", 11)
-    c.setFillColor(DARK_GRAY)
+    c.setFillColor(DARK_RED)
     c.drawString(LEFT_MARGIN, y_position, "Data Scientist")
     
     c.setFont("Helvetica", 10)
@@ -230,44 +249,97 @@ def draw_education(c, y_position):
     
     return y_position - 25
 
+# def draw_skills(c, y_position):
+#     """Draw skills section"""
+#     y_position = draw_section_header(c, y_position, "Skills")
+    
+#     skills_data = [
+#         ("Programming Languages", "PYTHON, R, SQL, BASH"),
+#         ("Visualization Tools", "MICROSTRATEGY"),
+#         ("Version Control", "GIT"),
+#         ("Text Editors", "RSTUDIO, VISUAL STUDIO CODE"),
+#         ("Operating System", "LINUX, WINDOWS"),
+#         ("Cloud Provider", "AWS"),
+#         ("DevOps", "DOCKER")
+#     ]
+    
+#     for i in range(len(skills_data)):
+#         skill_title, skill_value = skills_data[i]
+#         if((i+1)%2==0):
+#             c.setFont("Helvetica-Bold", 10)
+#             c.setFillColor(DARK_GRAY)
+#             c.drawRightString(PAGE_WIDTH-RIGHT_MARGIN, y_position, skill_title)
+
+#             y_position -= 14
+#             c.setFont("Helvetica", 9)
+#             c.setFillColor(LIGHT_GRAY)
+#             c.drawRightString(PAGE_WIDTH-RIGHT_MARGIN, y_position, skill_value)
+#             y_position -= 18
+#         else:
+#             c.setFont("Helvetica-Bold", 10)
+#             c.setFillColor(DARK_GRAY)
+#             c.drawString(LEFT_MARGIN, y_position, skill_title)
+
+#             # y_position -= 14
+#             c.setFont("Helvetica", 9)
+#             c.setFillColor(LIGHT_GRAY)
+#             c.drawString(LEFT_MARGIN, y_position-14, skill_value)
+#             # y_position -= 18
+    
+#     return y_position - 5
+
 def draw_skills(c, y_position):
-    """Draw skills section"""
-    y_position = draw_section_header(c, y_position, "Skills")
-    
-    skills_data = [
-        ("Programming Languages", "PYTHON, R, SQL, BASH"),
-        ("Visualization Tools", "MICROSTRATEGY"),
-        ("Version Control", "GIT"),
-        ("Text Editors", "RSTUDIO, VISUAL STUDIO CODE"),
-        ("Operating System", "LINUX, WINDOWS"),
-        ("Cloud Provider", "AWS"),
-        ("DevOps", "DOCKER")
+    """Draw skills section with modern categorization"""
+    y_position = draw_section_header(c, y_position, "Technical Skills")
+
+    # Skills organized by category
+    skills_categories = [
+        ("Machine Learning & Statistics", [
+            "Python Stack: scikit-learn, statsmodels, pandas, DuckDB",
+            "R Stack: data.table, tidymodels, dplyr, ggplot2",
+            "Techniques: Time Series Forecasting, Customer Segmentation, Churn Prediction,",
+            "  A/B Testing, Causal Inference, Statistical Modeling"
+        ]),
+        ("Data Engineering & ETL", [
+            "Data Processing: DuckDB, pandas, data.table (R)",
+            "Orchestration: dbt, Airflow",
+            "ETL & Wrangling: Advanced SQL, data pipelines, schema design"
+        ]),
+        ("MLOps & Deployment", [
+            "Containerization: Docker, Docker Compose",
+            "Cloud: AWS (S3, EC2)",
+            "Version Control & CI/CD: Git",
+            "Model Deployment: Production pipelines, monitoring, automated retraining"
+        ]),
+        ("Programming & Development", [
+            "Languages: Python (advanced), R (advanced), SQL, Bash",
+            "Python Stack: pandas, numpy, scikit-learn, polars, uv package manager",
+            "R Stack: data.table, tidymodels, tidyverse, ggplot2",
+            "Databases: MySQL, DuckDB",
+            "Tools: VS Code, RStudio, Jupyter, Linux/Windows"
+        ])
     ]
-    
-    for i in range(len(skills_data)):
-        skill_title, skill_value = skills_data[i]
-        if((i+1)%2==0):
-            c.setFont("Helvetica-Bold", 10)
-            c.setFillColor(DARK_GRAY)
-            c.drawRightString(PAGE_WIDTH-RIGHT_MARGIN, y_position, skill_title)
 
-            y_position -= 14
-            c.setFont("Helvetica", 9)
-            c.setFillColor(LIGHT_GRAY)
-            c.drawRightString(PAGE_WIDTH-RIGHT_MARGIN, y_position, skill_value)
-            y_position -= 18
-        else:
-            c.setFont("Helvetica-Bold", 10)
-            c.setFillColor(DARK_GRAY)
-            c.drawString(LEFT_MARGIN, y_position, skill_title)
+    c.setFont("Helvetica", 8.5)
 
-            # y_position -= 14
-            c.setFont("Helvetica", 9)
-            c.setFillColor(LIGHT_GRAY)
-            c.drawString(LEFT_MARGIN, y_position-14, skill_value)
-            # y_position -= 18
-    
-    return y_position - 5
+    for category, skills in skills_categories:
+        # Category header
+        c.setFont("Helvetica-Bold", 9)
+        c.setFillColor(DARK_RED)
+        c.drawString(LEFT_MARGIN, y_position, category)
+        y_position -= 13
+
+        # Skills
+        c.setFont("Helvetica", 8.8)
+        c.setFillColor(DARK_GRAY)
+        for skill in skills:
+            c.drawString(LEFT_MARGIN + 5, y_position, skill)
+            y_position -= 11
+
+        y_position -= 4  # Extra space between categories
+
+    return y_position - 10
+
 
 def draw_certifications(c, y_position):
     """Draw certifications section"""
@@ -363,7 +435,6 @@ def create_cv(output_path):
     y_position = draw_header(c, y_position)
     y_position = draw_employment(c, y_position)
     y_position = draw_education(c, y_position)
-    y_position = draw_skills(c, y_position)
 
     # Draw footer for page 1
     draw_footer(c, 2 * cm, page_number=1)
@@ -374,6 +445,7 @@ def create_cv(output_path):
     # Page 2 - Certifications and Languages
     y_position = PAGE_HEIGHT - TOP_MARGIN
 
+    y_position = draw_skills(c, y_position)
     y_position = draw_certifications(c, y_position)
     y_position = draw_languages(c, y_position)
 
